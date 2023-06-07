@@ -21,6 +21,8 @@ import DarkIcon from "../icons/dark.svg";
 import AutoIcon from "../icons/auto.svg";
 import BottomIcon from "../icons/bottom.svg";
 import StopIcon from "../icons/pause.svg";
+import ChatgptIcon from "../icons/chatgpt.svg";
+import { api, RequestMessage } from "../client/api";
 
 import {
   ChatMessage,
@@ -265,7 +267,7 @@ function ClearContextDivider() {
       className={chatStyle["clear-context"]}
       onClick={() =>
         chatStore.updateCurrentSession(
-          (session) => (session.clearContextIndex = undefined),
+          (session) => (session.clearContextIndex = -1),
         )
       }
     >
@@ -388,7 +390,7 @@ export function ChatActions(props: {
         onClick={() => {
           chatStore.updateCurrentSession((session) => {
             if (session.clearContextIndex === session.messages.length) {
-              session.clearContextIndex = undefined;
+              session.clearContextIndex = -1;
             } else {
               session.clearContextIndex = session.messages.length;
               session.memoryPrompt = ""; // will clear memory
@@ -414,6 +416,8 @@ export function Chat() {
   const fontSize = config.fontSize;
 
   const [showExport, setShowExport] = useState(false);
+  const [summary, setSummary] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const [userInput, setUserInput] = useState("");
@@ -692,11 +696,32 @@ export function Chat() {
           </div>
           <div className="window-action-button">
             <IconButton
-              icon={<RenameIcon />}
+              icon={<CopyIcon />}
               bordered
-              onClick={renameSession}
+              title={Locale.Memory.Title}
+              onClick={() => {
+                chatStore.summarizeMessages().then((summary: string) => {
+                  console.log("你好：{}", summary);
+                  setSummary(summary);
+                  setShowPopup(true);
+                });
+              }}
             />
           </div>
+          {/* 弹窗组件代码，用于显示摘要结果 */}
+          {showPopup && (
+            <div className="modal-mask">
+              <Modal
+                title={Locale.Memory.Title}
+                onClose={() => setShowPopup(false)}
+              >
+                <div style={{ minHeight: "20vh" }}>
+                  <p>{summary}</p>
+                </div>
+              </Modal>
+            </div>
+          )}
+
           <div className="window-action-button">
             <IconButton
               icon={<ExportIcon />}

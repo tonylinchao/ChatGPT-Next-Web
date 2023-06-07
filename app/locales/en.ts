@@ -7,13 +7,6 @@ const en: RequiredLocaleType = {
     Unauthorized:
       "Unauthorized access, please enter access code in [auth](/#/auth) page.",
   },
-  Auth: {
-    Title: "Need Access Code",
-    Tips: "Please enter access code below",
-    Input: "access code",
-    Confirm: "Confirm",
-    Later: "Later",
-  },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} messages`,
   },
@@ -193,7 +186,7 @@ const en: RequiredLocaleType = {
       Topic:
         "Please generate a four to five word title summarizing our conversation without any lead-in, punctuation, quotation marks, periods, symbols, or additional text. Remove enclosing quotation marks.",
       Summarize:
-        "Summarize the discussion briefly in 200 words or less to use as a prompt for future context.",
+        "Summarize the discussion briefly in 200 words or less to use as a prompt for future context. If user provided user information, please record it, you need to call user as 'Customer', judge the service quality of customer service and the emotions of users",
     },
   },
   Copy: {

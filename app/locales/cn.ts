@@ -4,14 +4,7 @@ const cn = {
   WIP: "该功能仍在开发中……",
   Error: {
     Unauthorized:
-      "访问密码不正确或为空，请前往[登录](/#/auth)页输入正确的访问密码，或者在[设置](/#/settings)页填入你自己的 OpenAI API Key。",
-  },
-  Auth: {
-    Title: "需要密码",
-    Tips: "管理员开启了密码验证，请在下方填入访问码",
-    Input: "在此处填写访问码",
-    Confirm: "确认",
-    Later: "稍后再说",
+      "访问密码不正确或为空，请前往[设置](/#/settings)页输入正确的访问密码，或者填入你自己的 OpenAI API Key。",
   },
   ChatItem: {
     ChatItemCount: (count: number) => `${count} 条对话`,
@@ -65,7 +58,7 @@ const cn = {
   Select: {
     Search: "搜索消息",
     All: "选取全部",
-    Latest: "最近几条",
+    Latest: "最近十条",
     Clear: "清除选中",
   },
   Memory: {
@@ -190,7 +183,7 @@ const cn = {
       Topic:
         "使用四到五个字直接返回这句话的简要主题，不要解释、不要标点、不要语气词、不要多余文本，如果没有主题，请直接返回“闲聊”",
       Summarize:
-        "简要总结一下对话内容，用作后续的上下文提示 prompt，控制在 200 字以内",
+        "简要总结一下对话内容，用作后续的上下文提示 prompt，控制在 200 字以内，如果用户有提供相关用户信息，也要记录下来，并且需要将你或者您改为称呼'客户'，并且判断客服的服务质量和用户的情绪",
     },
   },
   Copy: {

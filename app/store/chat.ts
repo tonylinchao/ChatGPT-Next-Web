@@ -20,6 +20,11 @@ export type ChatMessage = RequestMessage & {
   model?: ModelType;
 };
 
+export type SummarizeMessage = {
+  role: string;
+  conetnt?: string;
+};
+
 export function createMessage(override: Partial<ChatMessage>): ChatMessage {
   return {
     id: Date.now(),
@@ -87,6 +92,7 @@ interface ChatStore {
   onNewMessage: (message: ChatMessage) => void;
   onUserInput: (content: string) => Promise<void>;
   summarizeSession: () => void;
+  summarizeMessages: () => any;
   updateStat: (message: ChatMessage) => void;
   updateCurrentSession: (updater: (session: ChatSession) => void) => void;
   updateMessage: (
@@ -417,7 +423,44 @@ export const useChatStore = create<ChatStore>()(
         });
       },
 
+      async summarizeMessages() {
+        const session = get().currentSession();
+        const messages = session.messages;
+
+        const newMessages = messages.map((message) => {
+          return {
+            role: message.role,
+            content: message.content,
+          };
+        });
+        console.log("【newSummarizeMessages】:", newMessages);
+
+        const topicMessages = newMessages.concat(
+          createMessage({
+            role: "user",
+            content: Locale.Store.Prompt.Summarize,
+          }),
+        );
+        return new Promise((resolve, reject) => {
+          api.llm.chat({
+            messages: topicMessages,
+            config: {
+              model: "gpt-3.5-turbo",
+            },
+            onFinish(message) {
+              console.log("[最新的总结summary]", message);
+              resolve(message);
+            },
+            onError(error) {
+              console.error("summarizeMessages() failed", error);
+              reject(error); // 异常时调用 reject() 函数
+            },
+          });
+        });
+      },
+
       summarizeSession() {
+        console.log("summarizeSession");
         const session = get().currentSession();
 
         // remove error messages if any

@@ -9,8 +9,17 @@ import {
 } from "@fortaine/fetch-event-source";
 import { prettyObject } from "@/app/utils/format";
 
+interface Overrides {
+  model: string;
+}
+
+const overrides: Overrides = {
+  model: "gpt-4",
+};
+
 export class ChatGPTApi implements LLMApi {
-  public ChatPath = "v1/chat/completions";
+  // public ChatPath = "v1/chat/completions";
+  public ChatPath = "v1/groups/10625773/llm-model/chat";
   public UsagePath = "dashboard/billing/usage";
   public SubsPath = "dashboard/billing/subscription";
 
@@ -23,11 +32,12 @@ export class ChatGPTApi implements LLMApi {
   }
 
   extractMessage(res: any) {
-    return res.choices?.at(0)?.message?.content ?? "";
+    // return res.choices?.at(0)?.message?.content ?? "";
+    return res.answer;
   }
 
   async chat(options: ChatOptions) {
-    const messages = options.messages.map((v) => ({
+    const history = options.messages.map((v) => ({
       role: v.role,
       content: v.content,
     }));
@@ -41,11 +51,13 @@ export class ChatGPTApi implements LLMApi {
     };
 
     const requestPayload = {
-      messages,
-      stream: options.config.stream,
+      history,
+      // stream: options.config.stream,
       model: modelConfig.model,
-      temperature: modelConfig.temperature,
-      presence_penalty: modelConfig.presence_penalty,
+      approach: "rrr",
+      overrides,
+      // temperature: modelConfig.temperature,
+      // presence_penalty: modelConfig.presence_penalty,
     };
 
     console.log("[Request] openai payload: ", requestPayload);
@@ -115,8 +127,12 @@ export class ChatGPTApi implements LLMApi {
                 responseTexts.push(Locale.Error.Unauthorized);
               }
 
+              // 获取 res.answer 参数
+              console.log("请求结果：", responseTexts);
+              const { answer } = await res.clone().json();
+
               if (extraInfo) {
-                responseTexts.push(extraInfo);
+                responseTexts.push(answer);
               }
 
               responseText = responseTexts.join("\n\n");
@@ -129,9 +145,11 @@ export class ChatGPTApi implements LLMApi {
               return finish();
             }
             const text = msg.data;
+            console.log("[Response] openai result: ", text);
             try {
               const json = JSON.parse(text);
-              const delta = json.choices[0].delta.content;
+              // const delta = json.choices[0].delta.content;
+              const delta = json.answer;
               if (delta) {
                 responseText += delta;
                 options.onUpdate?.(responseText, delta);
