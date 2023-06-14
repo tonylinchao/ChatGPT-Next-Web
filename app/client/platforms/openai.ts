@@ -20,6 +20,7 @@ const overrides: Overrides = {
 export class ChatGPTApi implements LLMApi {
   // public ChatPath = "v1/chat/completions";
   public ChatPath = "v1/groups/10625773/llm-model/chat";
+  //public ChatPath = "v1/groups/10901293/llm-model/chat"; // Jason's bot
   public UsagePath = "dashboard/billing/usage";
   public SubsPath = "dashboard/billing/subscription";
 
