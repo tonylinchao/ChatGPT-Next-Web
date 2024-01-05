@@ -56,7 +56,7 @@ Full tech stack [here](/techstack.md)
 # Tech Stack File
 ![](https://img.stackshare.io/repo.svg "repo") [tonylinchao/ChatGPT-Next-Web](https://github.com/tonylinchao/ChatGPT-Next-Web)![](https://img.stackshare.io/public_badge.svg "public")
 <br/><br/>
-|36<br/>Tools used|12/29/23 <br/>Report generated|
+|38<br/>Tools used|01/05/24 <br/>Report generated|
 |------|------|
 </div>
 
@@ -249,9 +249,9 @@ Full tech stack [here](/techstack.md)
 </table>
 
 
-## <img src='https://img.stackshare.io/group.svg' /> Open source packages (15)</h2>
+## <img src='https://img.stackshare.io/group.svg' /> Open source packages (17)</h2>
 
-## <img width='24' height='24' src='https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png'/> npm (15)
+## <img width='24' height='24' src='https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png'/> npm (17)
 
 |NAME|VERSION|LAST UPDATED|LAST UPDATED BY|LICENSE|VULNERABILITIES|
 |:------|:------|:------|:------|:------|:------|
@@ -265,6 +265,8 @@ Full tech stack [here](/techstack.md)
 |[eslint-config-prettier](https://www.npmjs.com/eslint-config-prettier)|v8.8.0|06/19/23|dependabot[bot] |MIT|N/A|
 |[eslint-plugin-prettier](https://www.npmjs.com/eslint-plugin-prettier)|v4.2.1|06/19/23|dependabot[bot] |MIT|N/A|
 |[fuse.js](https://www.npmjs.com/fuse.js)|v6.6.2|03/28/23|Yifei Zhang |Apache-2.0|N/A|
+|[husky](https://www.npmjs.com/husky)|v8.0.3|04/16/23|Yidadaa |MIT|N/A|
+|[lint-staged](https://www.npmjs.com/lint-staged)|v13.2.2|06/19/23|dependabot[bot] |MIT|N/A|
 |[node-fetch](https://www.npmjs.com/node-fetch)|v3.3.1|06/16/23|dependabot[bot] |MIT|N/A|
 |[react-dom](https://www.npmjs.com/react-dom)|v18.2.0|06/19/23|dependabot[bot] |MIT|N/A|
 |[react-markdown](https://www.npmjs.com/react-markdown)|v8.0.7|06/19/23|dependabot[bot] |MIT|N/A|
